@@ -1,11 +1,12 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { PortfolioManager } from '../components/PortfolioManager.jsx';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Juan Pablo Carrión - Ingeniero de Software">
+  <main class="bg-[#0a0a0a] min-h-screen text-white font-sans selection:bg-blue-500 selection:text-white">
+    
+    <PortfolioManager client:load />
+
+  </main>
 </Layout>
