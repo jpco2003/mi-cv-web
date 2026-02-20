@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-// Importamos todas tus secciones
 import { Hero } from './Hero';
 import { Experience } from './Experience';
 import { Projects } from './Projects';
 import { Education } from './Education';
 import { ContactView } from './ContactView';
-// Importamos iconos para el menú
 import { User, Briefcase, Code2, GraduationCap, MessageSquare } from 'lucide-react';
 
 export const PortfolioManager = () => {
-  // Este es el "estado". Al principio vale 'inicio', así que muestra el Hero.
   const [activeTab, setActiveTab] = useState('inicio');
+  const [touchStart, setTouchStart] = useState(null); // Guardará dónde pones el dedo al inicio
 
-  // Configuración de los botones del menú
   const tabs = [
     { id: 'inicio', label: 'Perfil', icon: <User size={18} /> },
     { id: 'experiencia', label: 'Experiencia', icon: <Briefcase size={18} /> },
@@ -21,32 +18,71 @@ export const PortfolioManager = () => {
     { id: 'contacto', label: 'Contacto', icon: <MessageSquare size={18} /> },
   ];
 
+  // Extraemos solo los IDs para saber el orden de las pantallas
+  const tabOrder = tabs.map(tab => tab.id);
+
+  // --- 1. LÓGICA DE GESTOS TÁCTILES (SWIPE) ---
+  const handleTouchStart = (e) => {
+    // Registramos la posición X (horizontal) donde el dedo toca la pantalla
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!touchStart) return;
+    
+    // Registramos dónde se levantó el dedo
+    const touchEnd = e.changedTouches[0].clientX;
+    const distance = touchStart - touchEnd;
+    const minSwipeDistance = 50; // Distancia mínima en píxeles para que cuente como un deslizamiento
+
+    const currentIndex = tabOrder.indexOf(activeTab);
+
+    // Si deslizó hacia la izquierda (positiva) y no está en la última pestaña
+    if (distance > minSwipeDistance && currentIndex < tabOrder.length - 1) {
+      setActiveTab(tabOrder[currentIndex + 1]);
+    }
+    // Si deslizó hacia la derecha (negativa) y no está en la primera pestaña
+    if (distance < -minSwipeDistance && currentIndex > 0) {
+      setActiveTab(tabOrder[currentIndex - 1]);
+    }
+    
+    // Reiniciamos el estado para el siguiente gesto
+    setTouchStart(null); 
+  };
+
   return (
-    <div className="min-h-screen pb-20">
+    // --- 2. AGREGAMOS LOS EVENTOS AL CONTENEDOR PRINCIPAL ---
+    <div 
+      className="min-h-screen pb-24 md:pb-20 overflow-x-hidden" 
+      onTouchStart={handleTouchStart} 
+      onTouchEnd={handleTouchEnd}
+    >
       
-      {/* MENÚ DE NAVEGACIÓN (FLOTANTE ARRIBA) */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4">
-        <nav className="flex items-center gap-1 p-1 bg-[#1a1a1a]/90 backdrop-blur-md rounded-full border border-white/10 shadow-2xl overflow-x-auto max-w-full">
+      {/* --- 3. MENÚ: ABAJO EN MÓVILES, ARRIBA EN PC --- */}
+      {/* Cambiamos las clases para que en móviles (bottom-4) esté abajo, y en pantallas medianas (md:top-4) suba */}
+      <div className="fixed bottom-4 md:bottom-auto md:top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <nav className="pointer-events-auto flex items-center gap-1 p-1 bg-[#1a1a1a]/90 backdrop-blur-md rounded-full border border-white/10 shadow-2xl overflow-x-auto max-w-full">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`
-                flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap
+                flex items-center gap-2 px-5 py-3 md:py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap
                 ${activeTab === tab.id 
                   ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' 
                   : 'text-gray-400 hover:text-white hover:bg-white/5'}
               `}
             >
               {tab.icon}
-              <span className="hidden md:inline">{tab.label}</span> {/* Texto oculto en móviles muy pequeños */}
+              <span className="hidden md:inline">{tab.label}</span>
             </button>
           ))}
         </nav>
       </div>
 
-      {/* AQUÍ SE MUESTRA EL CONTENIDO SEGÚN EL BOTÓN QUE APRIETES */}
-      <main className="pt-28 px-4 max-w-7xl mx-auto">
+      {/* --- 4. CONTENIDO PRINCIPAL --- */}
+      {/* Ajustamos el padding-top (pt) para que no haya espacio vacío arriba en móviles */}
+      <main className="pt-8 md:pt-28 px-4 max-w-7xl mx-auto">
         {activeTab === 'inicio' && <Hero setSection={setActiveTab} />}
         {activeTab === 'experiencia' && <Experience />}
         {activeTab === 'proyectos' && <Projects />}
