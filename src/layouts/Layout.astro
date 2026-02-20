@@ -4,20 +4,38 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+// Configuración de metadatos para Redes Sociales
+const siteUrl = "https://mi-cv-web-nine.vercel.app"; 
+const imageUrl = `${siteUrl}/fotos/1749397393217.jpg`;
+const description = "Ingeniero de Software & Consultor Especialista en Zoho One. Transformo procesos manuales en sistemas automatizados y escalables.";
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Portafolio Profesional de Juan Pablo Carrión" />
 		<meta name="viewport" content="width=device-width" />
 		
-		<link rel="icon" type="image/jpeg" href="/fotos/icono.png" />
+		<link rel="icon" type="image/png" href="/fotos/icono.png" />
 		
 		<meta name="generator" content={Astro.generator} />
 		
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="author" content="Juan Pablo Carrión" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={siteUrl} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={imageUrl} />
+
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={siteUrl} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={imageUrl} />
 	</head>
 	<body>
 		<slot />
@@ -40,6 +58,7 @@ const { title } = Astro.props;
 		font-family: system-ui, sans-serif;
 		background: #0a0a0a; /* Fondo oscuro para evitar flash blanco al cargar */
 		color: white;
+		scroll-behavior: smooth;
 	}
 	code {
 		font-family:
@@ -51,10 +70,5 @@ const { title } = Astro.props;
 			Bitstream Vera Sans Mono,
 			Courier New,
 			monospace;
-	}
-	
-	/* Animaciones globales suaves */
-	html {
-		scroll-behavior: smooth;
 	}
 </style>
