@@ -43,7 +43,7 @@ export const ContactView = () => {
             <Instagram className="text-pink-500" /> Redes Sociales
           </h3>
           <div className="grid grid-cols-2 gap-4">
-            <SocialBtn href="https://linkedin.com/in/juan-pablo-carrion-41048121b" icon={<Linkedin size={20} />} label="LinkedIn" color="hover:text-blue-500 hover:border-blue-500" />
+            <SocialBtn href="https://www.linkedin.com/in/juan-pablo-carrion-ortiz-41048121b/" icon={<Linkedin size={20} />} label="LinkedIn" color="hover:text-blue-500 hover:border-blue-500" />
             <SocialBtn href="https://github.com/jpco2003" icon={<Github size={20} />} label="GitHub" color="hover:text-white hover:border-white" />
             <SocialBtn href="https://www.instagram.com/juanpablocarriion/" icon={<Instagram size={20} />} label="Instagram" color="hover:text-pink-500 hover:border-pink-500" />
             <SocialBtn href="https://www.facebook.com/juanpablocarriion" icon={<Facebook size={20} />} label="Facebook" color="hover:text-blue-600 hover:border-blue-600" />
