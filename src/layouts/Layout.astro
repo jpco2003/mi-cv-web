@@ -5,7 +5,7 @@ interface Props {
 
 const { title } = Astro.props;
 
-// Configuración de metadatos para Redes Sociales
+// Configuración SEO
 const siteUrl = "https://mi-cv-web-nine.vercel.app"; 
 const imageUrl = `${siteUrl}/fotos/1749397393217.jpg`;
 const description = "Ingeniero de Software & Consultor Especialista en Zoho One. Transformo procesos manuales en sistemas automatizados y escalables.";
@@ -16,27 +16,24 @@ const description = "Ingeniero de Software & Consultor Especialista en Zoho One.
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		
 		<link rel="icon" type="image/png" href="/fotos/icono.png" />
-		
 		<meta name="generator" content={Astro.generator} />
 		
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta name="author" content="Juan Pablo Carrión" />
-
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={siteUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={imageUrl} />
-
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content={siteUrl} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={imageUrl} />
 	</head>
+	
 	<body>
 		<slot />
 	</body>
@@ -45,30 +42,41 @@ const description = "Ingeniero de Software & Consultor Especialista en Zoho One.
 <style is:global>
 	:root {
 		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
 	}
+
 	html {
 		font-family: system-ui, sans-serif;
-		background: #0a0a0a; /* Fondo oscuro para evitar flash blanco al cargar */
+		background: #0a0a0a;
 		color: white;
 		scroll-behavior: smooth;
 	}
+
+	/* --- BARRA DE DESPLAZAMIENTO PERSONALIZADA (SCROLLBAR) --- */
+	/* Chrome, Edge y Safari */
+	::-webkit-scrollbar {
+		width: 8px; /* Más delgada y elegante */
+	}
+
+	::-webkit-scrollbar-track {
+		background: #0a0a0a; /* Se funde con el fondo de tu web */
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: #333; /* Gris oscuro neutro */
+		border-radius: 10px; /* Bordes redondeados */
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: #3b82f6; /* Se ilumina en azul cuando la tocas */
+	}
+
+	/* Firefox */
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: #333 #0a0a0a;
+	}
+
 	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+		font-family: Menlo, Monaco, Lucida Console, monospace;
 	}
 </style>
