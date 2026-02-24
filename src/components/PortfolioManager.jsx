@@ -4,75 +4,61 @@ import { Experience } from './Experience';
 import { Projects } from './Projects';
 import { Education } from './Education';
 import { ContactView } from './ContactView';
-import { User, Briefcase, Code2, GraduationCap, MessageSquare } from 'lucide-react';
+import { User, Briefcase, Code2, GraduationCap, MessageSquare, Globe } from 'lucide-react';
+import { translations } from '../translations'; // <-- IMPORTAMOS TU DICCIONARIO
 
 export const PortfolioManager = () => {
   const [activeTab, setActiveTab] = useState('inicio');
+  const [lang, setLang] = useState('es'); // <-- NUEVO: ESTADO DEL IDIOMA
 
-  // Usamos useRef para rastrear los dedos sin provocar re-renderizados lentos
   const touchStart = useRef(null);
   const touchEnd = useRef(null);
 
+  // Cargamos los textos del menú dependiendo de si lang es 'es' o 'en'
+  const t = translations[lang].nav;
+
   const tabs = [
-    { id: 'inicio', label: 'Perfil', icon: <User size={18} /> },
-    { id: 'experiencia', label: 'Experiencia', icon: <Briefcase size={18} /> },
-    { id: 'proyectos', label: 'Proyectos', icon: <Code2 size={18} /> },
-    { id: 'educacion', label: 'Educación', icon: <GraduationCap size={18} /> },
-    { id: 'contacto', label: 'Contacto', icon: <MessageSquare size={18} /> },
+    { id: 'inicio', label: t.inicio, icon: <User size={18} /> },
+    { id: 'experiencia', label: t.experiencia, icon: <Briefcase size={18} /> },
+    { id: 'proyectos', label: t.proyectos, icon: <Code2 size={18} /> },
+    { id: 'educacion', label: t.educacion, icon: <GraduationCap size={18} /> },
+    { id: 'contacto', label: t.contacto, icon: <MessageSquare size={18} /> },
   ];
 
   const tabOrder = tabs.map(tab => tab.id);
 
-  // --- 1. INICIO DEL TOQUE ---
+  // --- LÓGICA DE SWIPE (Mantenida intacta) ---
   const onTouchStart = (e) => {
-    touchEnd.current = null; // Reiniciamos el final
-    touchStart.current = {
-      x: e.targetTouches[0].clientX,
-      y: e.targetTouches[0].clientY
-    };
+    touchEnd.current = null;
+    touchStart.current = { x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY };
   };
 
-  // --- 2. MOVIMIENTO DEL DEDO ---
   const onTouchMove = (e) => {
-    // Actualizamos constantemente dónde está el dedo
-    touchEnd.current = {
-      x: e.targetTouches[0].clientX,
-      y: e.targetTouches[0].clientY
-    };
+    touchEnd.current = { x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY };
   };
 
-  // --- 3. AL LEVANTAR EL DEDO (DECISIÓN) ---
   const onTouchEnd = () => {
     if (!touchStart.current || !touchEnd.current) return;
-
-    // Distancia recorrida
     const distanceX = touchStart.current.x - touchEnd.current.x;
     const distanceY = touchStart.current.y - touchEnd.current.y;
-    const minSwipeDistance = 50; // Mínimo píxeles para considerar swipe
+    const minSwipeDistance = 50; 
 
-    // LÓGICA ANTI-REBOTE:
-    // 1. Debe ser un movimiento horizontal claro (más X que Y)
-    // 2. Debe superar la distancia mínima
     if (Math.abs(distanceX) > Math.abs(distanceY)) {
       const isLeftSwipe = distanceX > minSwipeDistance;
       const isRightSwipe = distanceX < -minSwipeDistance;
-      
       const currentIndex = tabOrder.indexOf(activeTab);
 
-      if (isLeftSwipe && currentIndex < tabOrder.length - 1) {
-        // Deslizar izquierda -> Siguiente pestaña
-        setActiveTab(tabOrder[currentIndex + 1]);
-      }
-
-      if (isRightSwipe && currentIndex > 0) {
-        // Deslizar derecha -> Pestaña anterior
-        setActiveTab(tabOrder[currentIndex - 1]);
-      }
+      if (isLeftSwipe && currentIndex < tabOrder.length - 1) setActiveTab(tabOrder[currentIndex + 1]);
+      if (isRightSwipe && currentIndex > 0) setActiveTab(tabOrder[currentIndex - 1]);
     }
   };
 
+  // Función para alternar el idioma
+  const toggleLanguage = () => {
+    setLang(prevLang => prevLang === 'es' ? 'en' : 'es');
+  };
+
   return (
-    // Agregamos 'touch-pan-y' para mejorar la respuesta en móviles
     <div 
       className="min-h-screen pb-24 md:pb-20 overflow-x-hidden touch-pan-y" 
       onTouchStart={onTouchStart} 
@@ -98,16 +84,29 @@ export const PortfolioManager = () => {
               <span className="hidden md:inline">{tab.label}</span>
             </button>
           ))}
+
+          {/* LÍNEA SEPARADORA */}
+          <div className="w-px h-6 bg-gray-700 mx-1"></div>
+
+          {/* EL BOTÓN MÁGICO BILINGÜE */}
+          <button
+            onClick={toggleLanguage}
+            className="flex items-center gap-2 px-4 py-3 md:py-2 rounded-full text-sm font-bold text-gray-300 hover:text-white hover:bg-gray-800 transition-all duration-300"
+            title="Cambiar Idioma / Change Language"
+          >
+            <Globe size={16} className="text-blue-400" />
+            {lang.toUpperCase()}
+          </button>
         </nav>
       </div>
 
       {/* CONTENIDO PRINCIPAL */}
       <main className="pt-8 md:pt-28 px-4 max-w-7xl mx-auto">
-        {activeTab === 'inicio' && <Hero setSection={setActiveTab} />}
-        {activeTab === 'experiencia' && <Experience />}
-        {activeTab === 'proyectos' && <Projects />}
-        {activeTab === 'educacion' && <Education />}
-        {activeTab === 'contacto' && <ContactView />}
+        {activeTab === 'inicio' && <Hero setSection={setActiveTab} lang={lang} />}
+        {activeTab === 'experiencia' && <Experience lang={lang} />}
+        {activeTab === 'proyectos' && <Projects lang={lang} />}
+        {activeTab === 'educacion' && <Education lang={lang} />}
+        {activeTab === 'contacto' && <ContactView lang={lang} />}
       </main>
 
     </div>
