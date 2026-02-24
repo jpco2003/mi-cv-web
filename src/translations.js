@@ -14,7 +14,6 @@ export const translations = {
         btnProjects: "Ver Proyectos",
         stack: "Arsenal Tecnológico"
       },
-      // --- NUEVO: EXPERIENCIA EN ESPAÑOL ---
       experience: {
         title: "Experiencia Profesional",
         jobs: [
@@ -50,6 +49,60 @@ export const translations = {
             ]
           }
         ]
+      },
+      projects: {
+        title: "Proyectos Destacados",
+        viewCode: "Ver Código en GitHub",
+        items: [
+          {
+            badge: "TESIS DE GRADO",
+            title1: "Integración Empresarial Zoho ",
+            title2: "Creator",
+            title3: " + ",
+            title4: "SAP",
+            description: "Arquitectura de software diseñada para una empresa de pinturas. Orquestación de flujo de datos entre Zoho Creator, Zoho Analytics y SAP ERP mediante APIs REST."
+          },
+          {
+            badge: "IMPACTO SOCIAL - CÁRITAS",
+            title: "Sistema de Agendamiento Psicológico",
+            description: "Desarrollo de un widget personalizado integrado en Zoho CRM para la fundación Cáritas. Gestiona la disponibilidad de terapeutas para brindar atención psicológica."
+          },
+          {
+            badge: "PLATAFORMA ACADÉMICA",
+            title: "Repositorio Digital de Tesis",
+            description: "Plataforma web full-stack desarrollada para visualizar y gestionar las tesis de los alumnos egresados. Backend robusto con Python y Flask y persistencia en MySQL."
+          },
+          {
+            badge: "EXPERIMENTO UX / UI",
+            title: "Análisis de Eye-Tracking",
+            description: "Implementación de técnicas de eye-tracking usando WebGazer.js para capturar la mirada. Generación de Mapas de Calor en tiempo real para optimizar UX."
+          }
+        ]
+      },
+      education: {
+        titleEdu: "Educación",
+        titleCert: "Certificaciones",
+        downloadCert: "Descargar Certificado",
+        items: [
+          {
+            degree: "Ingeniería de Software",
+            school: "Universidad Internacional SEK",
+            period: "2025 - Actualidad (8avo Semestre)",
+            desc: "Formación avanzada en arquitectura de software, metodologías ágiles y bases de datos."
+          },
+          {
+            degree: "Tecnología en Desarrollo de Software",
+            school: "Instituto Universitario ISMAC",
+            period: "2023 (Egresado)",
+            desc: "Especialización práctica en desarrollo web y multimedia."
+          },
+          {
+            degree: "Bachiller en Ciencias",
+            school: "Unidad Educativa La Inmaculada",
+            period: "2021",
+            desc: ""
+          }
+        ]
       }
     },
     en: {
@@ -67,7 +120,6 @@ export const translations = {
         btnProjects: "View Projects",
         stack: "Tech Stack"
       },
-      // --- NUEVO: EXPERIENCIA EN INGLÉS ---
       experience: {
         title: "Professional Experience",
         jobs: [
@@ -101,6 +153,60 @@ export const translations = {
               "Structured cabling and router configuration.",
               "Hardware and connectivity troubleshooting and diagnostics."
             ]
+          }
+        ]
+      },
+      projects: {
+        title: "Featured Projects",
+        viewCode: "View Code on GitHub",
+        items: [
+          {
+            badge: "THESIS PROJECT",
+            title1: "Enterprise Integration Zoho ",
+            title2: "Creator",
+            title3: " + ",
+            title4: "SAP",
+            description: "Software architecture designed for a paint company. Data flow orchestration between Zoho Creator, Zoho Analytics, and SAP ERP via REST APIs."
+          },
+          {
+            badge: "SOCIAL IMPACT - CARITAS",
+            title: "Psychological Scheduling System",
+            description: "Development of a custom widget integrated into Zoho CRM for the Caritas foundation. Manages therapist availability to provide psychological care."
+          },
+          {
+            badge: "ACADEMIC PLATFORM",
+            title: "Digital Thesis Repository",
+            description: "Full-stack web platform developed to view and manage alumni theses. Robust backend with Python and Flask, and persistence in MySQL."
+          },
+          {
+            badge: "UX / UI EXPERIMENT",
+            title: "Eye-Tracking Analysis",
+            description: "Implementation of eye-tracking techniques using WebGazer.js to capture gaze. Real-time Heatmap generation to optimize UX."
+          }
+        ]
+      },
+      education: {
+        titleEdu: "Education",
+        titleCert: "Certifications",
+        downloadCert: "Download Certificate",
+        items: [
+          {
+            degree: "Software Engineering",
+            school: "Universidad Internacional SEK",
+            period: "2025 - Present (8th Semester)",
+            desc: "Advanced training in software architecture, agile methodologies, and databases."
+          },
+          {
+            degree: "Software Development Technology",
+            school: "Instituto Universitario ISMAC",
+            period: "2023 (Graduated)",
+            desc: "Practical specialization in web and multimedia development."
+          },
+          {
+            degree: "Bachelor of Science",
+            school: "Unidad Educativa La Inmaculada",
+            period: "2021",
+            desc: ""
           }
         ]
       }
