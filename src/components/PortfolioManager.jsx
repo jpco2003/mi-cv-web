@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Hero } from './Hero';
 import { Experience } from './Experience';
 import { Projects } from './Projects';
@@ -8,7 +8,10 @@ import { User, Briefcase, Code2, GraduationCap, MessageSquare } from 'lucide-rea
 
 export const PortfolioManager = () => {
   const [activeTab, setActiveTab] = useState('inicio');
-  const [touchStart, setTouchStart] = useState(null);
+
+  // Usamos useRef para rastrear los dedos sin provocar re-renderizados lentos
+  const touchStart = useRef(null);
+  const touchEnd = useRef(null);
 
   const tabs = [
     { id: 'inicio', label: 'Perfil', icon: <User size={18} /> },
@@ -20,53 +23,64 @@ export const PortfolioManager = () => {
 
   const tabOrder = tabs.map(tab => tab.id);
 
-  // --- LÓGICA DE SWIPE OPTIMIZADA PARA iOS ---
-  const handleTouchStart = (e) => {
-    // Ahora guardamos tanto X (horizontal) como Y (vertical)
-    setTouchStart({
-      x: e.touches[0].clientX,
-      y: e.touches[0].clientY
-    });
+  // --- 1. INICIO DEL TOQUE ---
+  const onTouchStart = (e) => {
+    touchEnd.current = null; // Reiniciamos el final
+    touchStart.current = {
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY
+    };
   };
 
-  const handleTouchEnd = (e) => {
-    if (!touchStart) return;
-    
-    const touchEndX = e.changedTouches[0].clientX;
-    const touchEndY = e.changedTouches[0].clientY;
-    
-    // Calculamos qué tanto se movió en ambos ejes
-    const distanceX = touchStart.x - touchEndX;
-    const distanceY = touchStart.y - touchEndY;
-    const minSwipeDistance = 50; 
+  // --- 2. MOVIMIENTO DEL DEDO ---
+  const onTouchMove = (e) => {
+    // Actualizamos constantemente dónde está el dedo
+    touchEnd.current = {
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY
+    };
+  };
 
-    // LA MAGIA PARA iOS: 
-    // Solo cambiamos de pestaña si el deslizamiento fue MUCHO más horizontal que vertical
+  // --- 3. AL LEVANTAR EL DEDO (DECISIÓN) ---
+  const onTouchEnd = () => {
+    if (!touchStart.current || !touchEnd.current) return;
+
+    // Distancia recorrida
+    const distanceX = touchStart.current.x - touchEnd.current.x;
+    const distanceY = touchStart.current.y - touchEnd.current.y;
+    const minSwipeDistance = 50; // Mínimo píxeles para considerar swipe
+
+    // LÓGICA ANTI-REBOTE:
+    // 1. Debe ser un movimiento horizontal claro (más X que Y)
+    // 2. Debe superar la distancia mínima
     if (Math.abs(distanceX) > Math.abs(distanceY)) {
+      const isLeftSwipe = distanceX > minSwipeDistance;
+      const isRightSwipe = distanceX < -minSwipeDistance;
+      
       const currentIndex = tabOrder.indexOf(activeTab);
 
-      // Deslizó a la izquierda (Avanzar)
-      if (distanceX > minSwipeDistance && currentIndex < tabOrder.length - 1) {
+      if (isLeftSwipe && currentIndex < tabOrder.length - 1) {
+        // Deslizar izquierda -> Siguiente pestaña
         setActiveTab(tabOrder[currentIndex + 1]);
       }
-      // Deslizó a la derecha (Retroceder)
-      if (distanceX < -minSwipeDistance && currentIndex > 0) {
+
+      if (isRightSwipe && currentIndex > 0) {
+        // Deslizar derecha -> Pestaña anterior
         setActiveTab(tabOrder[currentIndex - 1]);
       }
     }
-    
-    setTouchStart(null); 
   };
 
   return (
-    // Agregamos 'touch-pan-y' que le dice a iOS: "Solo controla el scroll vertical, yo me encargo del horizontal"
+    // Agregamos 'touch-pan-y' para mejorar la respuesta en móviles
     <div 
       className="min-h-screen pb-24 md:pb-20 overflow-x-hidden touch-pan-y" 
-      onTouchStart={handleTouchStart} 
-      onTouchEnd={handleTouchEnd}
+      onTouchStart={onTouchStart} 
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
     >
       
-      {/* MENÚ */}
+      {/* MENÚ FLOTANTE */}
       <div className="fixed bottom-4 md:bottom-auto md:top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
         <nav className="pointer-events-auto flex items-center gap-1 p-1 bg-[#1a1a1a]/90 backdrop-blur-md rounded-full border border-white/10 shadow-2xl overflow-x-auto max-w-full">
           {tabs.map((tab) => (
@@ -87,7 +101,7 @@ export const PortfolioManager = () => {
         </nav>
       </div>
 
-      {/* CONTENIDO */}
+      {/* CONTENIDO PRINCIPAL */}
       <main className="pt-8 md:pt-28 px-4 max-w-7xl mx-auto">
         {activeTab === 'inicio' && <Hero setSection={setActiveTab} />}
         {activeTab === 'experiencia' && <Experience />}
