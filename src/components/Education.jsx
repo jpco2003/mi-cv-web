@@ -1,5 +1,6 @@
 import React from 'react';
 import { GraduationCap, Award, Download, Globe, BookOpen } from 'lucide-react';
+import { Reveal } from './Reveal'; // <-- IMPORTAMOS LA ANIMACIÓN
 
 export const Education = () => {
   
@@ -44,75 +45,87 @@ export const Education = () => {
   ];
 
   return (
-    <section className="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900">
+    <section className="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900 overflow-hidden">
       
       <div className="grid md:grid-cols-2 gap-16">
         
         {/* COLUMNA IZQUIERDA: EDUCACIÓN FORMAL */}
         <div>
-          <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-            <GraduationCap className="text-blue-500" /> Educación
-          </h2>
+          <Reveal>
+            <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+              <GraduationCap className="text-blue-500" /> Educación
+            </h2>
+          </Reveal>
 
           <div className="space-y-10 border-l-2 border-gray-800 ml-3">
             
             {/* Universidad */}
-            <div className="relative pl-8 group">
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-blue-600 border-4 border-[#0a0a0a] group-hover:scale-125 transition-transform"></div>
-              <h3 className="text-xl font-bold text-white">Ingeniería de Software</h3>
-              <p className="text-blue-400 font-medium">Universidad Internacional SEK</p>
-              <p className="text-gray-500 text-sm mb-2">2025 - Actualidad (8avo Semestre)</p>
-              <p className="text-gray-400">Formación avanzada en arquitectura de software, metodologías ágiles y bases de datos.</p>
-            </div>
+            <Reveal>
+              <div className="relative pl-8 group">
+                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-900 border-2 border-blue-600 transition-all duration-300 group-hover:bg-blue-500 group-hover:scale-125 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]"></div>
+                <h3 className="text-xl font-bold text-white group-hover:text-blue-50 transition-colors">Ingeniería de Software</h3>
+                <p className="text-blue-400 font-medium">Universidad Internacional SEK</p>
+                <p className="text-gray-500 text-sm mb-2 font-mono mt-1">2025 - Actualidad (8avo Semestre)</p>
+                <p className="text-gray-400 leading-relaxed">Formación avanzada en arquitectura de software, metodologías ágiles y bases de datos.</p>
+              </div>
+            </Reveal>
 
             {/* Instituto */}
-            <div className="relative pl-8 group">
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-600 border-4 border-[#0a0a0a] group-hover:border-blue-500 transition-colors"></div>
-              <h3 className="text-xl font-bold text-white">Tecnología en Desarrollo de Software</h3>
-              <p className="text-blue-400 font-medium">Instituto Universitario ISMAC</p>
-              <p className="text-gray-500 text-sm mb-2">2023 (Egresado)</p>
-              <p className="text-gray-400">Especialización práctica en desarrollo web y multimedia.</p>
-            </div>
+            <Reveal>
+              <div className="relative pl-8 group">
+                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-900 border-2 border-gray-600 transition-all duration-300 group-hover:border-blue-500 group-hover:bg-blue-900"></div>
+                <h3 className="text-xl font-bold text-white group-hover:text-gray-200 transition-colors">Tecnología en Desarrollo de Software</h3>
+                <p className="text-blue-400 font-medium">Instituto Universitario ISMAC</p>
+                <p className="text-gray-500 text-sm mb-2 font-mono mt-1">2023 (Egresado)</p>
+                <p className="text-gray-400 leading-relaxed">Especialización práctica en desarrollo web y multimedia.</p>
+              </div>
+            </Reveal>
 
             {/* Colegio */}
-            <div className="relative pl-8 group">
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-600 border-4 border-[#0a0a0a] group-hover:border-blue-500 transition-colors"></div>
-              <h3 className="text-xl font-bold text-white">Bachiller en Ciencias</h3>
-              <p className="text-blue-400 font-medium">Unidad Educativa La Inmaculada</p>
-              <p className="text-gray-500 text-sm">2021</p>
-            </div>
+            <Reveal>
+              <div className="relative pl-8 group">
+                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-900 border-2 border-gray-600 transition-all duration-300 group-hover:border-blue-500 group-hover:bg-blue-900"></div>
+                <h3 className="text-xl font-bold text-white group-hover:text-gray-200 transition-colors">Bachiller en Ciencias</h3>
+                <p className="text-blue-400 font-medium">Unidad Educativa La Inmaculada</p>
+                <p className="text-gray-500 text-sm font-mono mt-1">2021</p>
+              </div>
+            </Reveal>
 
           </div>
         </div>
 
         {/* COLUMNA DERECHA: CERTIFICACIONES */}
         <div>
-          <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-            <Award className="text-yellow-500" /> Certificaciones
-          </h2>
+          <Reveal>
+            <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+              <Award className="text-yellow-500" /> Certificaciones
+            </h2>
+          </Reveal>
 
-          <div className="grid gap-3">
+          <div className="grid gap-4">
             {certificates.map((cert, index) => (
-              <div key={index} className="p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-blue-500/50 hover:bg-gray-800 transition-all flex items-center justify-between group">
-                <div className="flex items-center gap-4">
-                  <div className="p-2 bg-black rounded-lg border border-gray-700">
-                    {cert.icon}
+              <Reveal key={index}>
+                <div className="p-4 rounded-xl bg-[#111] border border-gray-800 hover:border-blue-500/40 hover:bg-gray-900/60 shadow-lg transition-all flex items-center justify-between group">
+                  <div className="flex items-center gap-4">
+                    <div className="p-2 bg-black rounded-lg border border-gray-800 group-hover:border-gray-600 transition-colors">
+                      {cert.icon}
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold text-sm md:text-base group-hover:text-blue-100 transition-colors">{cert.title}</h4>
+                      <p className="text-xs text-gray-400 font-mono mt-0.5">{cert.issuer}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-white font-bold text-sm md:text-base">{cert.title}</h4>
-                    <p className="text-xs text-gray-400">{cert.issuer}</p>
-                  </div>
+                  <a 
+                    href={cert.file} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 bg-gray-800/50 rounded-lg text-gray-400 group-hover:text-blue-400 group-hover:bg-blue-900/30 transition-all ml-2 border border-transparent group-hover:border-blue-900/50" 
+                    title="Descargar Certificado"
+                  >
+                    <Download size={18} />
+                  </a>
                 </div>
-                <a 
-                  href={cert.file} 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 bg-gray-800 rounded-lg text-gray-400 group-hover:text-blue-400 group-hover:bg-blue-900/20 transition-all ml-2" 
-                  title="Descargar Certificado"
-                >
-                  <Download size={18} />
-                </a>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
