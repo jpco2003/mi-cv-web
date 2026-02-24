@@ -103,6 +103,30 @@ export const translations = {
             desc: ""
           }
         ]
+      },
+      // --- NUEVA SECCIÓN DE CONTACTO EN ESPAÑOL ---
+      contact: {
+        title: "Trabajemos Juntos",
+        subtitle: "Envíame un mensaje",
+        nameLabel: "Tu Nombre",
+        namePlaceholder: "Ej. Carlos Mendoza",
+        emailLabel: "Tu Correo Electrónico",
+        emailPlaceholder: "carlos@empresa.com",
+        phoneLabel: "Tu Teléfono (Opcional)",
+        phonePlaceholder: "Ej. +593 99 123 4567",
+        msgLabel: "Mensaje",
+        msgPlaceholder: "Hola Juan Pablo, me interesa tu perfil para un proyecto de...",
+        btnSend: "Enviar Mensaje",
+        btnSending: "Enviando...",
+        successMsg: "¡Mensaje enviado con éxito! Te responderé pronto.",
+        errorEmail: "Por favor, ingresa un correo electrónico válido.",
+        errorSend: "Hubo un problema de conexión.",
+        directContact: "Contacto Directo",
+        email: "Correo Electrónico",
+        phone: "Teléfono / WhatsApp",
+        location: "Ubicación",
+        locationText: "Quito, Ecuador",
+        networks: "Mis Redes"
       }
     },
     en: {
@@ -209,6 +233,30 @@ export const translations = {
             desc: ""
           }
         ]
+      },
+      // --- NUEVA SECCIÓN DE CONTACTO EN INGLÉS ---
+      contact: {
+        title: "Let's Work Together",
+        subtitle: "Send me a message",
+        nameLabel: "Your Name",
+        namePlaceholder: "E.g. John Doe",
+        emailLabel: "Your Email",
+        emailPlaceholder: "john@company.com",
+        phoneLabel: "Your Phone (Optional)",
+        phonePlaceholder: "E.g. +1 234 567 8900",
+        msgLabel: "Message",
+        msgPlaceholder: "Hi Juan Pablo, I'm interested in your profile for a project...",
+        btnSend: "Send Message",
+        btnSending: "Sending...",
+        successMsg: "Message sent successfully! I'll reply soon.",
+        errorEmail: "Please enter a valid email address.",
+        errorSend: "There was a connection problem.",
+        directContact: "Direct Contact",
+        email: "Email",
+        phone: "Phone / WhatsApp",
+        location: "Location",
+        locationText: "Quito, Ecuador",
+        networks: "My Networks"
       }
     }
   };

@@ -1,10 +1,11 @@
 import React from 'react';
 import { GraduationCap, Award, Download, Globe, BookOpen } from 'lucide-react';
-import { Reveal } from './Reveal'; // <-- IMPORTAMOS LA ANIMACIÓN
+import { Reveal } from './Reveal';
+import { translations } from '../translations';
 
-export const Education = () => {
+export const Education = ({ lang }) => {
+  const t = translations[lang].education;
   
-  // Lista de certificados actualizada con UISEK
   const certificates = [
     {
       title: "English Language Level B2",
@@ -46,51 +47,28 @@ export const Education = () => {
 
   return (
     <section className="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900 overflow-hidden">
-      
       <div className="grid md:grid-cols-2 gap-16">
         
         {/* COLUMNA IZQUIERDA: EDUCACIÓN FORMAL */}
         <div>
           <Reveal>
             <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-              <GraduationCap className="text-blue-500" /> Educación
+              <GraduationCap className="text-blue-500" /> {t.titleEdu}
             </h2>
           </Reveal>
 
           <div className="space-y-10 border-l-2 border-gray-800 ml-3">
-            
-            {/* Universidad */}
-            <Reveal>
-              <div className="relative pl-8 group">
-                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-900 border-2 border-blue-600 transition-all duration-300 group-hover:bg-blue-500 group-hover:scale-125 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]"></div>
-                <h3 className="text-xl font-bold text-white group-hover:text-blue-50 transition-colors">Ingeniería de Software</h3>
-                <p className="text-blue-400 font-medium">Universidad Internacional SEK</p>
-                <p className="text-gray-500 text-sm mb-2 font-mono mt-1">2025 - Actualidad (8avo Semestre)</p>
-                <p className="text-gray-400 leading-relaxed">Formación avanzada en arquitectura de software, metodologías ágiles y bases de datos.</p>
-              </div>
-            </Reveal>
-
-            {/* Instituto */}
-            <Reveal>
-              <div className="relative pl-8 group">
-                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-900 border-2 border-gray-600 transition-all duration-300 group-hover:border-blue-500 group-hover:bg-blue-900"></div>
-                <h3 className="text-xl font-bold text-white group-hover:text-gray-200 transition-colors">Tecnología en Desarrollo de Software</h3>
-                <p className="text-blue-400 font-medium">Instituto Universitario ISMAC</p>
-                <p className="text-gray-500 text-sm mb-2 font-mono mt-1">2023 (Egresado)</p>
-                <p className="text-gray-400 leading-relaxed">Especialización práctica en desarrollo web y multimedia.</p>
-              </div>
-            </Reveal>
-
-            {/* Colegio */}
-            <Reveal>
-              <div className="relative pl-8 group">
-                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-900 border-2 border-gray-600 transition-all duration-300 group-hover:border-blue-500 group-hover:bg-blue-900"></div>
-                <h3 className="text-xl font-bold text-white group-hover:text-gray-200 transition-colors">Bachiller en Ciencias</h3>
-                <p className="text-blue-400 font-medium">Unidad Educativa La Inmaculada</p>
-                <p className="text-gray-500 text-sm font-mono mt-1">2021</p>
-              </div>
-            </Reveal>
-
+            {t.items.map((item, index) => (
+              <Reveal key={index}>
+                <div className="relative pl-8 group">
+                  <div className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-900 border-2 ${index === 0 ? 'border-blue-600 group-hover:bg-blue-500 group-hover:scale-125 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]' : 'border-gray-600 group-hover:border-blue-500 group-hover:bg-blue-900'} transition-all duration-300`}></div>
+                  <h3 className={`text-xl font-bold text-white transition-colors ${index === 0 ? 'group-hover:text-blue-50' : 'group-hover:text-gray-200'}`}>{item.degree}</h3>
+                  <p className="text-blue-400 font-medium">{item.school}</p>
+                  <p className="text-gray-500 text-sm mb-2 font-mono mt-1">{item.period}</p>
+                  {item.desc && <p className="text-gray-400 leading-relaxed">{item.desc}</p>}
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
 
@@ -98,7 +76,7 @@ export const Education = () => {
         <div>
           <Reveal>
             <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-              <Award className="text-yellow-500" /> Certificaciones
+              <Award className="text-yellow-500" /> {t.titleCert}
             </h2>
           </Reveal>
 
@@ -120,7 +98,7 @@ export const Education = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-gray-800/50 rounded-lg text-gray-400 group-hover:text-blue-400 group-hover:bg-blue-900/30 transition-all ml-2 border border-transparent group-hover:border-blue-900/50" 
-                    title="Descargar Certificado"
+                    title={t.downloadCert}
                   >
                     <Download size={18} />
                   </a>
