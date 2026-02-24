@@ -8,7 +8,7 @@ import { User, Briefcase, Code2, GraduationCap, MessageSquare } from 'lucide-rea
 
 export const PortfolioManager = () => {
   const [activeTab, setActiveTab] = useState('inicio');
-  const [touchStart, setTouchStart] = useState(null); // Guardará dónde pones el dedo al inicio
+  const [touchStart, setTouchStart] = useState(null);
 
   const tabs = [
     { id: 'inicio', label: 'Perfil', icon: <User size={18} /> },
@@ -18,48 +18,55 @@ export const PortfolioManager = () => {
     { id: 'contacto', label: 'Contacto', icon: <MessageSquare size={18} /> },
   ];
 
-  // Extraemos solo los IDs para saber el orden de las pantallas
   const tabOrder = tabs.map(tab => tab.id);
 
-  // --- 1. LÓGICA DE GESTOS TÁCTILES (SWIPE) ---
+  // --- LÓGICA DE SWIPE OPTIMIZADA PARA iOS ---
   const handleTouchStart = (e) => {
-    // Registramos la posición X (horizontal) donde el dedo toca la pantalla
-    setTouchStart(e.touches[0].clientX);
+    // Ahora guardamos tanto X (horizontal) como Y (vertical)
+    setTouchStart({
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY
+    });
   };
 
   const handleTouchEnd = (e) => {
     if (!touchStart) return;
     
-    // Registramos dónde se levantó el dedo
-    const touchEnd = e.changedTouches[0].clientX;
-    const distance = touchStart - touchEnd;
-    const minSwipeDistance = 50; // Distancia mínima en píxeles para que cuente como un deslizamiento
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    
+    // Calculamos qué tanto se movió en ambos ejes
+    const distanceX = touchStart.x - touchEndX;
+    const distanceY = touchStart.y - touchEndY;
+    const minSwipeDistance = 50; 
 
-    const currentIndex = tabOrder.indexOf(activeTab);
+    // LA MAGIA PARA iOS: 
+    // Solo cambiamos de pestaña si el deslizamiento fue MUCHO más horizontal que vertical
+    if (Math.abs(distanceX) > Math.abs(distanceY)) {
+      const currentIndex = tabOrder.indexOf(activeTab);
 
-    // Si deslizó hacia la izquierda (positiva) y no está en la última pestaña
-    if (distance > minSwipeDistance && currentIndex < tabOrder.length - 1) {
-      setActiveTab(tabOrder[currentIndex + 1]);
-    }
-    // Si deslizó hacia la derecha (negativa) y no está en la primera pestaña
-    if (distance < -minSwipeDistance && currentIndex > 0) {
-      setActiveTab(tabOrder[currentIndex - 1]);
+      // Deslizó a la izquierda (Avanzar)
+      if (distanceX > minSwipeDistance && currentIndex < tabOrder.length - 1) {
+        setActiveTab(tabOrder[currentIndex + 1]);
+      }
+      // Deslizó a la derecha (Retroceder)
+      if (distanceX < -minSwipeDistance && currentIndex > 0) {
+        setActiveTab(tabOrder[currentIndex - 1]);
+      }
     }
     
-    // Reiniciamos el estado para el siguiente gesto
     setTouchStart(null); 
   };
 
   return (
-    // --- 2. AGREGAMOS LOS EVENTOS AL CONTENEDOR PRINCIPAL ---
+    // Agregamos 'touch-pan-y' que le dice a iOS: "Solo controla el scroll vertical, yo me encargo del horizontal"
     <div 
-      className="min-h-screen pb-24 md:pb-20 overflow-x-hidden" 
+      className="min-h-screen pb-24 md:pb-20 overflow-x-hidden touch-pan-y" 
       onTouchStart={handleTouchStart} 
       onTouchEnd={handleTouchEnd}
     >
       
-      {/* --- 3. MENÚ: ABAJO EN MÓVILES, ARRIBA EN PC --- */}
-      {/* Cambiamos las clases para que en móviles (bottom-4) esté abajo, y en pantallas medianas (md:top-4) suba */}
+      {/* MENÚ */}
       <div className="fixed bottom-4 md:bottom-auto md:top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
         <nav className="pointer-events-auto flex items-center gap-1 p-1 bg-[#1a1a1a]/90 backdrop-blur-md rounded-full border border-white/10 shadow-2xl overflow-x-auto max-w-full">
           {tabs.map((tab) => (
@@ -80,8 +87,7 @@ export const PortfolioManager = () => {
         </nav>
       </div>
 
-      {/* --- 4. CONTENIDO PRINCIPAL --- */}
-      {/* Ajustamos el padding-top (pt) para que no haya espacio vacío arriba en móviles */}
+      {/* CONTENIDO */}
       <main className="pt-8 md:pt-28 px-4 max-w-7xl mx-auto">
         {activeTab === 'inicio' && <Hero setSection={setActiveTab} />}
         {activeTab === 'experiencia' && <Experience />}
