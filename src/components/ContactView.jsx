@@ -146,10 +146,10 @@ export const ContactView = () => {
           <div className="bg-[#111] p-8 rounded-3xl border border-gray-800">
             <h3 className="text-xl font-bold text-white mb-6">Mis Redes</h3>
             <div className="grid grid-cols-5 gap-3">
-              <SocialBtn href="https://linkedin.com/in/juan-pablo-carrion-41048121b/" icon={<Linkedin size={22} />} color="hover:bg-blue-600 hover:text-white hover:border-blue-500" />
+              <SocialBtn href="https://www.linkedin.com/in/juan-pablo-carrion-ortiz-41048121b/" icon={<Linkedin size={22} />} color="hover:bg-blue-600 hover:text-white hover:border-blue-500" />
               <SocialBtn href="https://github.com/jpco2003" icon={<Github size={22} />} color="hover:bg-gray-700 hover:text-white hover:border-gray-500" />
               <SocialBtn href="https://www.instagram.com/juanpablocarriion/" icon={<Instagram size={22} />} color="hover:bg-pink-600 hover:text-white hover:border-pink-500" />
-              <SocialBtn href="https://www.facebook.com/juanpablo.carrion.16" icon={<Facebook size={22} />} color="hover:bg-blue-800 hover:text-white hover:border-blue-700" />
+              <SocialBtn href="https://www.facebook.com/juanpablocarriion" icon={<Facebook size={22} />} color="hover:bg-blue-800 hover:text-white hover:border-blue-700" />
               <SocialBtn href="https://twitter.com/JuanPabloCO18" icon={<Twitter size={22} />} color="hover:bg-sky-500 hover:text-white hover:border-sky-500" />
             </div>
           </div>
