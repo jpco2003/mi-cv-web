@@ -5,7 +5,7 @@ import { translations } from '../translations';
 
 export const Education = ({ lang }) => {
   const t = translations[lang].education;
-  
+
   const certificates = [
     {
       title: "English Language Level B2",
@@ -16,7 +16,7 @@ export const Education = ({ lang }) => {
     {
       title: "Formación para el Empleo",
       issuer: "Universidad Internacional SEK",
-      file: "/certificados/Formación para el Empleo.pdf", 
+      file: "/certificados/Formación para el Empleo.pdf",
       icon: <BookOpen className="text-green-400" size={20} />
     },
     {
@@ -42,13 +42,19 @@ export const Education = ({ lang }) => {
       issuer: "Curso de Especialización",
       file: "/certificados/Power Bi.jpg",
       icon: <Award className="text-yellow-600" size={20} />
+    },
+    {
+      title: "Comunicación de Proyectos Exitosos",
+      issuer: "Coursera",
+      file: "/certificados/Curso Comunicación de Proyectos Exitosos.pdf",
+      icon: <Award className="text-yellow-600" size={20} />
     }
   ];
 
   return (
     <section className="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900 overflow-hidden">
       <div className="grid md:grid-cols-2 gap-16">
-        
+
         {/* COLUMNA IZQUIERDA: EDUCACIÓN FORMAL */}
         <div>
           <Reveal>
@@ -93,11 +99,11 @@ export const Education = ({ lang }) => {
                       <p className="text-xs text-gray-400 font-mono mt-0.5">{cert.issuer}</p>
                     </div>
                   </div>
-                  <a 
-                    href={cert.file} 
+                  <a
+                    href={cert.file}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 bg-gray-800/50 rounded-lg text-gray-400 group-hover:text-blue-400 group-hover:bg-blue-900/30 transition-all ml-2 border border-transparent group-hover:border-blue-900/50" 
+                    className="p-2 bg-gray-800/50 rounded-lg text-gray-400 group-hover:text-blue-400 group-hover:bg-blue-900/30 transition-all ml-2 border border-transparent group-hover:border-blue-900/50"
                     title={t.downloadCert}
                   >
                     <Download size={18} />
