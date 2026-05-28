@@ -48,6 +48,12 @@ export const Education = ({ lang }) => {
       issuer: "Coursera",
       file: "/certificados/Curso Comunicación de Proyectos Exitosos.pdf",
       icon: <Award className="text-yellow-600" size={20} />
+    },
+    {
+      title: "Introduction to agent skills",
+      issuer: "Anthropic",
+      file: "/certificados/Introducción Skills Claude.pdf",
+      icon: <Award className="text-yellow-600" size={20} />
     }
   ];
 
