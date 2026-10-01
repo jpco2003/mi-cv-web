@@ -95,13 +95,13 @@ export const translations = {
           school: "Instituto Universitario ISMAC",
           period: "2023 (Egresado)",
           desc: "Especialización práctica en desarrollo web y multimedia."
-        },
+        }/*,
         {
           degree: "Bachiller en Ciencias",
           school: "Unidad Educativa La Inmaculada",
           period: "2021",
           desc: ""
-        }
+        }*/
       ]
     },
     // --- NUEVA SECCIÓN DE CONTACTO EN ESPAÑOL ---
