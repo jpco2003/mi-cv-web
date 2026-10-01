@@ -65,21 +65,52 @@ export const Education = ({ lang }) => {
         <div>
           <Reveal>
             <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-              <GraduationCap className="text-blue-500" /> {t.titleEdu}
+              <GraduationCap className="text-blue-500" size={32} /> {t.titleEdu}
             </h2>
           </Reveal>
 
-          <div className="space-y-10 border-l-2 border-gray-800 ml-3">
-            {t.items.map((item, index) => (
-              <Reveal key={index}>
-                <div className="relative pl-8 group">
-                  <div className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-900 border-2 ${index === 0 ? 'border-blue-600 group-hover:bg-blue-500 group-hover:scale-125 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]' : 'border-gray-600 group-hover:border-blue-500 group-hover:bg-blue-900'} transition-all duration-300`}></div>
-                  <h3 className={`text-xl font-bold text-white transition-colors ${index === 0 ? 'group-hover:text-blue-50' : 'group-hover:text-gray-200'}`}>{item.degree}</h3>
-                  <p className="text-blue-400 font-medium">{item.school}</p>
-                  <p className="text-gray-500 text-sm mb-2 font-mono mt-1">{item.period}</p>
-                  {item.desc && <p className="text-gray-400 leading-relaxed">{item.desc}</p>}
+          <div className="space-y-10">
+            {(t.levels || [{ name: t.titleEdu, items: t.items || [] }]).map((level, levelIndex) => (
+              <div key={levelIndex} className="space-y-6">
+                <Reveal>
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                      {level.name}
+                    </span>
+                    <div className="h-px flex-1 bg-gradient-to-r from-gray-800 to-transparent"></div>
+                  </div>
+                </Reveal>
+
+                <div className="space-y-8 border-l-2 border-gray-800 ml-3">
+                  {level.items.map((item, index) => {
+                    const isLatest = levelIndex === 0 && index === 0;
+                    return (
+                      <Reveal key={index}>
+                        <div className="relative pl-8 group">
+                          <div
+                            className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-900 border-2 ${
+                              isLatest
+                                ? 'border-blue-600 group-hover:bg-blue-500 group-hover:scale-125 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]'
+                                : 'border-gray-600 group-hover:border-blue-500 group-hover:bg-blue-900'
+                            } transition-all duration-300`}
+                          ></div>
+                          <h3
+                            className={`text-xl font-bold text-white transition-colors ${
+                              isLatest ? 'group-hover:text-blue-50' : 'group-hover:text-gray-200'
+                            }`}
+                          >
+                            {item.degree}
+                          </h3>
+                          <p className="text-blue-400 font-medium">{item.school}</p>
+                          <p className="text-gray-500 text-sm mb-2 font-mono mt-1">{item.period}</p>
+                          {item.desc && <p className="text-gray-400 leading-relaxed text-sm">{item.desc}</p>}
+                        </div>
+                      </Reveal>
+                    );
+                  })}
                 </div>
-              </Reveal>
+              </div>
             ))}
           </div>
         </div>

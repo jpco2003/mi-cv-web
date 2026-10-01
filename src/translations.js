@@ -83,6 +83,36 @@ export const translations = {
       titleEdu: "Educación",
       titleCert: "Certificaciones",
       downloadCert: "Descargar Certificado",
+      levels: [
+        {
+          name: "Tercer Nivel",
+          items: [
+            {
+              degree: "Ingeniería de Software",
+              school: "Universidad Internacional SEK",
+              period: "2026 (Graduado)",
+              desc: "Formación avanzada en arquitectura de software, metodologías ágiles y bases de datos."
+            },
+            {
+              degree: "Tecnología en Desarrollo de Software",
+              school: "Instituto Universitario ISMAC",
+              period: "2023 (Egresado)",
+              desc: "Especialización práctica en desarrollo web y multimedia."
+            }
+          ]
+        },
+        {
+          name: "Bachillerato",
+          items: [
+            {
+              degree: "Bachiller en Ciencias",
+              school: "Unidad Educativa La Inmaculada",
+              period: "2021",
+              desc: ""
+            }
+          ]
+        }
+      ],
       items: [
         {
           degree: "Ingeniería de Software",
@@ -95,13 +125,13 @@ export const translations = {
           school: "Instituto Universitario ISMAC",
           period: "2023 (Egresado)",
           desc: "Especialización práctica en desarrollo web y multimedia."
-        }/*,
+        },
         {
           degree: "Bachiller en Ciencias",
           school: "Unidad Educativa La Inmaculada",
           period: "2021",
           desc: ""
-        }*/
+        }
       ]
     },
     // --- NUEVA SECCIÓN DE CONTACTO EN ESPAÑOL ---
@@ -213,6 +243,36 @@ export const translations = {
       titleEdu: "Education",
       titleCert: "Certifications",
       downloadCert: "Download Certificate",
+      levels: [
+        {
+          name: "Higher Education",
+          items: [
+            {
+              degree: "Software Engineering",
+              school: "Universidad Internacional SEK",
+              period: "2026 (Graduate)",
+              desc: "Advanced training in software architecture, agile methodologies, and databases."
+            },
+            {
+              degree: "Software Development Technology",
+              school: "Instituto Universitario ISMAC",
+              period: "2023 (Graduated)",
+              desc: "Practical specialization in web and multimedia development."
+            }
+          ]
+        },
+        {
+          name: "High School",
+          items: [
+            {
+              degree: "Bachelor of Science",
+              school: "Unidad Educativa La Inmaculada",
+              period: "2021",
+              desc: ""
+            }
+          ]
+        }
+      ],
       items: [
         {
           degree: "Software Engineering",
